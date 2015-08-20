@@ -2,12 +2,52 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Effective JavaScript: Frogger</title>
+    <title>NotthatFrogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
 </head>
 <body>
+    <div id="selectionMenu">
+        <h1>NotthatFrogger!</h1>
+        <p>Choose Character, Difficulty and Duration. Collect the Gems and avoid the Enemies!</p>
+        <hr>
+            <h2>Select Character</h2>
+            <img id="char0" class="charImg" onclick="charClick(this.id, 0)" src="images/char-boy.png" />
+            <img id="char1" class="charImg" onclick="charClick(this.id, 1)" src="images/char-cat-girl.png" />
+            <img id="char2" class="charImg" onclick="charClick(this.id, 2)" src="images/char-horn-girl.png" />
+            <img id="char3" class="charImg" onclick="charClick(this.id, 3)" src="images/char-pink-girl.png" />
+            <img id="char4" class="charImg" onclick="charClick(this.id, 4)" src="images/char-princess-girl.png" />
+        <hr>
+            <h2>Select Difficulty</h2>
+            <button id="easyButton" class="button diffButton" onclick="difficultyClick(this.id, 'Easy')">Easy</button>
+            <button id="normalButton" class="button diffButton" onclick="difficultyClick(this.id, 'Normal')">Normal</button>
+            <button id="nightmareButton" class="button diffButton" onclick="difficultyClick(this.id, 'Nightmare')">Nightmare</button>
+        <hr>
+            <h2>Select Duration</h2>
+            <button id="twoButton" class="button durationButton" onclick="timeClick (this.id, 'one')">1 Minute</button>
+            <button id="fourButton" class="button durationButton" onclick="timeClick (this.id, 'two')">2 Minutes</button>
+            <button id="sixButton" class="button durationButton" onclick="timeClick (this.id, 'three')">3 Minutes</button>
+        <hr>
+            <button id="playGame" class="button" onclick="playClick();">Play</button>    
+    </div>
+
+    <div id="gameOver">
+        <div id="gameOverTotal">
+            <h1 id="gameOverTitle">GAME OVER</h1><br>
+            <h2>You Scored<h2>
+            <h1 id="pointsTotal">0</h1>
+            <h2>Points</h2>
+        </div>
+    </div>
+    <div id ="stats">
+        <div id="lives">Lives: 7</div>
+        <div id="timer">2:00</div>
+        <div id="points">Points: 0</div>
+    </div>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
+    <div id="diffName">Difficulty: Easy</div>
+    <button id="restartButton" class="button" onclick="history.go(0)">Reset</button>
 </body>
 </html>
