@@ -138,3 +138,119 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Selection Functions
+
+// Char Selection Function
+function charClick (imgId, imgIndex) {
+    charIndex = imgIndex;
+    var buttons = document.getElementsByClassName('charImg'); 
+    for (var i = 0, length = buttons.length; i < length; i++) {
+       buttons[i].style.border = '2px solid white';
+    }
+    document.getElementById(imgId).style.border = '2px solid green';
+    userSelections[0] = true;
+}
+
+// Difficulty Selection Function
+function difficultyClick (buttonID, rating) {
+    switch (rating) {
+    case 'Easy':
+        enemySpeedMult = 200;
+        collisionProx = 20;
+        lives = 3;
+        gemIndex = 0;
+        pointsPerGem = 20;
+        break;
+    case 'Normal':
+        enemySpeedMult = 400;
+        collisionProx = 40;
+        lives = 5;
+        gemIndex = 1;
+        pointsPerGem = 40;
+        break;
+    case 'Nightmare':
+        enemySpeedMult = 1000;
+        collisionProx = 60;
+        lives = 7;
+        gemIndex = 2;
+        pointsPerGem = 60;
+        break;
+    }
+    var buttons = document.getElementsByClassName('diffButton'); 
+    for(var i = 0, length = buttons.length; i < length; i++) {
+       buttons[i].style.border = '2px solid white';
+    }
+    document.getElementById(buttonID).style.border = '2px solid green';
+    document.getElementById('lives').innerHTML = 'Lives: ' + lives;
+    document.getElementById('diffName').innerHTML = 'Difficulty: ' + rating;
+    userSelections[1] = true;
+}
+
+// Duration Selection Function
+function timeClick (buttonID, duration) {
+    switch (duration) {
+    case 'one':
+        minutes = 1;
+        break;
+    case 'two':
+        minutes = 2;
+        break;
+    case 'three':
+        minutes = 3;
+    }
+    var buttons = document.getElementsByClassName('durationButton'); 
+    for (var i = 0, length = buttons.length; i < length; i++) {
+       buttons[i].style.border = '2px solid white';
+    }
+    document.getElementById(buttonID).style.border = '2px solid green';
+    userSelections[2] = true;
+}
+
+// Countdown Function
+function countdown(minutes) {
+    var seconds = 60;
+    var mins = minutes
+    function tick() {
+        var counter = document.getElementById("timer");
+        var current_minutes = mins-1
+        seconds--;
+        counter.innerHTML = 
+        current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+        if ( seconds > 0 ) {
+            setTimeout(tick, 1000);
+        } else {
+            if (mins > 1){    
+               setTimeout(function () { countdown(mins - 1); }, 1000);  
+            }
+        }
+        if (current_minutes === 0 && seconds === 0) {
+            endGame();
+        }
+    }
+    tick();
+}
+
+// Play Selection Function
+function playClick () {
+    var selectionCount = 0;
+    for (var i = 0, length = userSelections.length; i < length; i++) {
+        if(userSelections[i] === true) {
+           selectionCount++;
+        }
+    }
+    if (selectionCount === 3) {
+        document.getElementById('selectionMenu').style.display = 'none';
+        renderFlag = true;
+        countdown(minutes);
+    } else {
+        alert('Be sure you have selected any voice to play.');
+    }
+}
+
+// Game Over Function
+function endGame () {
+    renderFlag = false;
+    document.getElementById('pointsTotal').innerHTML = totalPoints;
+    document.getElementById('gameOver').style.display = 'block';
+}
