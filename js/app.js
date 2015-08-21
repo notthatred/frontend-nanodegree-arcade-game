@@ -84,8 +84,8 @@ Player.prototype.handleInput = function(key) {
 };
 
 Player.prototype.reset = function() {
-    player.x = 200;
-    player.y = 400;
+    this.x = 200;
+    this.y = 400;
     lives--;
     document.getElementById('lives').innerHTML = 'Lives: ' + lives;
     if (lives < 0) {
