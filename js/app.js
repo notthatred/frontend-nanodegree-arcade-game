@@ -1,5 +1,5 @@
 // Add Variables
-var userSelections = [false, false, false]; 
+var userSelections = [false, false, false];
 var renderFlag = false;
 var charImages = [
     'images/char-boy.png',
@@ -8,7 +8,7 @@ var charImages = [
     'images/char-pink-girl.png',
     'images/char-princess-girl.png'
     ];
-var charIndex; 
+var charIndex;
 var enemySpeedMult = 300;
 var collisionProx = 30;
 var lives;
@@ -30,12 +30,12 @@ var Enemy = function() {
     this.x = -100;
     this.y = allY[Math.floor(Math.random() * 3)];
     this.speed = Math.floor(100 + (Math.random() * enemySpeedMult));
-}
+};
 
 Enemy.prototype.update = function(dt) {
     this.x = this.x + (this.speed * dt);
     if (this.x > 550) {
-        this.x = -100
+        this.x = -100;
         this.y = this.y + 83;
         this.speed = Math.floor(100 + (Math.random() * enemySpeedMult));
         if (this.y > 226) {
@@ -47,73 +47,72 @@ Enemy.prototype.update = function(dt) {
         player.reset();
         }
     }
-}
+};
 
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Player Class
 var Player = function() {
-  this.x = 200;
-  this.y = 400;
-}
+    this.x = 200;
+    this.y = 400;
+};
 
 Player.prototype.update = function() {
-    if (this.ctlKey === 'left' && this.x > 0){ 
+    if (this.ctlKey === 'left' && this.x > 0) {
         this.x = this.x - 100;
-    } else if (this.ctlKey === 'right' && this.x != 400){
+    } else if (this.ctlKey === 'right' && this.x != 400) {
         this.x = this.x + 100;
-    } else if (this.ctlKey === 'up'){
+    } else if (this.ctlKey === 'up') {
         this.y = this.y - 83;
-    } else if (this.ctlKey === 'down' && this.y != 400){
+    } else if (this.ctlKey === 'down' && this.y != 400) {
         this.y = this.y + 83;
     }
     this.ctlKey = null;
-    if (this.y < 60){
+    if (this.y < 60) {
         this.reset();
     }
-}
+};
 
 Player.prototype.render = function() {
- ctx.drawImage(Resources.get(charImages[charIndex]), this.x, this.y);
-}
+    ctx.drawImage(Resources.get(charImages[charIndex]), this.x, this.y);
+};
 
 Player.prototype.handleInput = function(key) {
-  this.ctlKey = key;
-}
+    this.ctlKey = key;
+};
 
 Player.prototype.reset = function() {
-  player.x = 200;
-  player.y = 400;
-  lives--;
-  document.getElementById('lives').innerHTML = 'Lives: ' + lives;
-  if (lives < 0) {
-    endGame();
-  }
-}
+    player.x = 200;
+    player.y = 400;
+    lives--;
+    document.getElementById('lives').innerHTML = 'Lives: ' + lives;
+    if (lives < 0) {
+        endGame();
+    }
+};
 
 // Gem class
 var Gem = function() {
-  this.x = gemX[Math.floor(Math.random() * 5)];
-  this.y = allY[Math.floor(Math.random() * 3)];
-}
+    this.x = gemX[Math.floor(Math.random() * 5)];
+    this.y = allY[Math.floor(Math.random() * 3)];
+};
 
 Gem.prototype.update = function() {
     if (player.y === this.y + 8 && player.y === this.y + 8) {
         if (player.x === this.x && player.x === this.x) {
-        totalPoints = totalPoints + pointsPerGem;
-        this.x = gemX[Math.floor(Math.random() * 5)];
-        this.y = allY[Math.floor(Math.random() * 3)];
+            totalPoints = totalPoints + pointsPerGem;
+            this.x = gemX[Math.floor(Math.random() * 5)];
+            this.y = allY[Math.floor(Math.random() * 3)];
         }
     }
     document.getElementById('points').innerHTML = 'Points: ' + totalPoints;
-}
+};
 
 Gem.prototype.render = function() {
-  ctx.drawImage(Resources.get(gemImages[gemIndex]), this.x, this.y);
-
-}
+    ctx.drawImage(Resources.get(gemImages[gemIndex]), this.x, this.y);
+};
 
 // Instantiate objects.
 var enemyA = new Enemy();
@@ -144,7 +143,7 @@ document.addEventListener('keyup', function(e) {
 // Char Selection Function
 function charClick (imgId, imgIndex) {
     charIndex = imgIndex;
-    var buttons = document.getElementsByClassName('charImg'); 
+    var buttons = document.getElementsByClassName('charImg');
     for (var i = 0, length = buttons.length; i < length; i++) {
        buttons[i].style.border = '2px solid white';
     }
@@ -177,7 +176,7 @@ function difficultyClick (buttonID, rating) {
         pointsPerGem = 60;
         break;
     }
-    var buttons = document.getElementsByClassName('diffButton'); 
+    var buttons = document.getElementsByClassName('diffButton');
     for(var i = 0, length = buttons.length; i < length; i++) {
        buttons[i].style.border = '2px solid white';
     }
@@ -199,7 +198,7 @@ function timeClick (buttonID, duration) {
     case 'three':
         minutes = 3;
     }
-    var buttons = document.getElementsByClassName('durationButton'); 
+    var buttons = document.getElementsByClassName('durationButton');
     for (var i = 0, length = buttons.length; i < length; i++) {
        buttons[i].style.border = '2px solid white';
     }
@@ -210,18 +209,18 @@ function timeClick (buttonID, duration) {
 // Countdown Function
 function countdown(minutes) {
     var seconds = 60;
-    var mins = minutes
+    var mins = minutes;
     function tick() {
         var counter = document.getElementById("timer");
-        var current_minutes = mins-1
+        var current_minutes = mins-1;
         seconds--;
-        counter.innerHTML = 
+        counter.innerHTML =
         current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
         if ( seconds > 0 ) {
             setTimeout(tick, 1000);
         } else {
-            if (mins > 1){    
-               setTimeout(function () { countdown(mins - 1); }, 1000);  
+            if (mins > 1) {
+               setTimeout(function () { countdown(mins - 1); }, 1000);
             }
         }
         if (current_minutes === 0 && seconds === 0) {
@@ -235,7 +234,7 @@ function countdown(minutes) {
 function playClick () {
     var selectionCount = 0;
     for (var i = 0, length = userSelections.length; i < length; i++) {
-        if(userSelections[i] === true) {
+        if (userSelections[i] === true) {
            selectionCount++;
         }
     }
